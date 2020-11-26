@@ -4,4 +4,6 @@ const app = express();
 
 app.use(express.json());
 
-app.listen(3000, () => console.log('>>>> Auth Service Started <<<<'));
+app.listen(3000, () =>
+  console.log('>>>> Auth Service Started | PORT: 3000 <<<<'),
+);
