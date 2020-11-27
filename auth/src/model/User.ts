@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
+import Password from '../utils/Password';
 
 //? An interface that describe the properties
 //? that are required to create a new USER
-
 interface UserInterface {
   email: string;
   password: string;
@@ -10,7 +10,6 @@ interface UserInterface {
 
 //? An interface that  desc the props
 //? that a USER model has!
-
 interface UserModel extends mongoose.Model<UserDoc> {
   build({ email, password }: UserInterface): UserDoc;
 }
@@ -32,6 +31,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+userSchema.pre('save', async function (next) {
+  if (this.isModified('password')) {
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password', hashed);
+  }
+  next();
 });
 
 userSchema.statics.build = ({ email, password }: UserInterface) => {
