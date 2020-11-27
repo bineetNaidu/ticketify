@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
-import User from '../../model/User';
+import User from '../model/User';
 import BadRequestError from '../errors/BadRequestError';
 import RequestValidationError from '../errors/RequestValidatorError';
 
