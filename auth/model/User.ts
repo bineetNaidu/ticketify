@@ -8,6 +8,13 @@ interface UserInterface {
   password: string;
 }
 
+// An interface that  desc the props
+// that a USER model has!
+
+interface UserModel extends mongoose.Model<any> {
+  build({ email, password }: UserInterface): any;
+}
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -20,10 +27,10 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model('User', userSchema);
-
-export const createUser = ({ email, password }: UserInterface) => {
+userSchema.statics.build = ({ email, password }: UserInterface) => {
   return new User({ email, password });
 };
+
+const User = mongoose.model<any, UserModel>('User', userSchema);
 
 export default User;
