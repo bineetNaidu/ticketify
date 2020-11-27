@@ -1,4 +1,5 @@
 import express from 'express';
+import errorHandler from './middlewares/errorHandler';
 
 //? Routers
 import { currentUserRouter } from './routes/currentUser';
@@ -14,6 +15,9 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
+
+// ! Error Handlers
+app.use(errorHandler);
 
 app.listen(3000, () =>
   console.log('>>>> Auth Service Started | PORT: 3000 <<<<'),
