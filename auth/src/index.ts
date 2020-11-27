@@ -1,5 +1,6 @@
 import express from 'express';
 import errorHandler from './middlewares/errorHandler';
+import NotFoundError from './errors/NotFoundError';
 
 //? Routers
 import { currentUserRouter } from './routes/currentUser';
@@ -15,6 +16,11 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
+
+//! Not found page error
+app.all('*', () => {
+  throw new NotFoundError();
+});
 
 // ! Error Handlers
 app.use(errorHandler);
