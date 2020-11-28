@@ -36,7 +36,7 @@ router.post(
 
     const userJwt = jwt.sign(
       { id: user.id, email: user.email },
-      'mfsjvnasodralkn',
+      process.env.JWT_KEY!,
     );
     req.session = {
       ticketifyJwt: userJwt,
