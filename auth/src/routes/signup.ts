@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
 import User from '../model/User';
 import BadRequestError from '../errors/BadRequestError';
 import RequestValidationError from '../errors/RequestValidatorError';
@@ -32,6 +33,14 @@ router.post(
 
     const user = User.build({ email, password });
     await user.save();
+
+    const userJwt = jwt.sign(
+      { id: user.id, email: user.email },
+      'mfsjvnasodralkn',
+    );
+    req.session = {
+      ticketifyJwt: userJwt,
+    };
 
     res.status(201).json(user);
   },
