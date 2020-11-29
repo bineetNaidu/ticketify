@@ -37,7 +37,7 @@ router.post(
       ticketifyJwt: userJwt,
     };
 
-    res.status(201).json(user);
+    res.status(200).json(user);
   },
 );
 export { router as signinRouter };
