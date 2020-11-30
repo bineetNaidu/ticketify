@@ -12,6 +12,14 @@ build:
       manual:
         - src: 'src/**/*.ts'
           dest: .
+  - image: bineetnaidu/ticketify-client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: '**/*.js'
+          dest: .
 deploy:
   kubectl:
     manifests:
