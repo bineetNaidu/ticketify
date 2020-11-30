@@ -1,30 +1,23 @@
 import Axios from 'axios';
 import React from 'react';
+import buildClient from '../api/buildClient';
 
 const Index = ({ currentUser }) => {
-  console.log(props);
   return (
-    <div>
-      <h1>Index File</h1>
+    <div className="container">
+      {currentUser === null ? (
+        <h1 className="text-center">Your are sign out</h1>
+      ) : (
+        <h1 className="text-center">Your are signed in</h1>
+      )}
     </div>
   );
 };
 
-Index.getInitialProps = async ({ req }) => {
-  if (typeof window === 'undefined') {
-    // On server!
-    const { data } = await Axios.get(
-      'http://ingress-nginx-controller.kube-system.svc.cluster.local/api/users/currentuser',
-      {
-        headers: req.headers,
-      },
-    );
-    return data;
-  } else {
-    // on Browser!
-    const { data } = await Axios.get('/api/users/currentuser');
-    return data;
-  }
+Index.getInitialProps = async (context) => {
+  const { data } = await buildClient(context).get('/api/users/currentuser');
+  console.log(data);
+  return data;
 };
 
 export default Index;
