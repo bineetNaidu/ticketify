@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import React from 'react';
 import buildClient from '../api/buildClient';
 
@@ -15,8 +14,8 @@ const Index = ({ currentUser }) => {
 };
 
 Index.getInitialProps = async (context) => {
-  const { data } = await buildClient(context).get('/api/users/currentuser');
-  console.log(data);
+  const client = buildClient(context);
+  const { data } = await client.get('/api/users/currentuser');
   return data;
 };
 
