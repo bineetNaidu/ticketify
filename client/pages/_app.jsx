@@ -11,7 +11,6 @@ function MyApp({ Component, pageProps, currentUser }) {
       </Head>
       <div>
         <Header />
-        <pre>{JSON.stringify(currentUser)} </pre>
         <Component {...pageProps} />
       </div>
     </>
