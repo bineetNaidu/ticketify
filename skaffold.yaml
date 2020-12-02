@@ -20,9 +20,19 @@ build:
       manual:
         - src: '**/*.js'
           dest: .
+  - image: bineetnaidu/ticketify-tickets
+    context: tickets
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
 deploy:
   kubectl:
     manifests:
     - k8s/auth-depl.yaml
     - k8s/auth-mongo-depl.yaml
     - k8s/ingress-srv.yaml
+    - k8s/tickets-depl.yaml
+    - k8s/tickets-mongo-depl.yaml
