@@ -1,6 +1,5 @@
 import express from 'express';
-import errorHandler from './middlewares/errorHandler';
-import NotFoundError from './errors/NotFoundError';
+import { errorHandler, NotFoundError } from '@bnticketify/commons';
 import cookieSession from 'cookie-session';
 import 'express-async-errors';
 

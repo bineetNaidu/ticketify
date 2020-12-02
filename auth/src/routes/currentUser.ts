@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { currentUser } from '../middlewares/currentUser';
+import { currentUser } from '@bnticketify/commons';
 
 const router = Router();
 

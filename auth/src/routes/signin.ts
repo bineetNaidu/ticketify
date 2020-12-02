@@ -1,8 +1,7 @@
 import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import BadRequestError from '../errors/BadRequestError';
-import { validateRequest } from '../middlewares/validateRequest';
+import { BadRequestError, validateRequest } from '@bnticketify/commons';
 import User from '../model/User';
 import Password from '../utils/Password';
 

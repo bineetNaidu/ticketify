@@ -1,9 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
+import { BadRequestError, validateRequest } from '@bnticketify/commons';
 import User from '../model/User';
-import BadRequestError from '../errors/BadRequestError';
-import { validateRequest } from '../middlewares/validateRequest';
 
 const router = Router();
 
