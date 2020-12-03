@@ -27,11 +27,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  const collections = await mongoose.connection.db.collections();
-
-  for (let collection of collections) {
-    await collection.deleteMany({});
-  }
+  await mongoose.connection.dropDatabase();
 });
 
 afterAll(async () => {
