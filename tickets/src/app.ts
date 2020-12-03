@@ -4,6 +4,7 @@ import cookieSession from 'cookie-session';
 import 'express-async-errors';
 
 //? Routers
+import { createTicketRoute } from './routes/new';
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   }),
 );
+
+app.use(createTicketRoute);
 
 //! Not found page error
 app.all('*', () => {
