@@ -1,8 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import request from 'supertest';
-import app from '../app';
 
 declare global {
   namespace NodeJS {
@@ -27,7 +25,13 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await mongoose.connection.dropDatabase();
+  jest.clearAllMocks();
+  const collections = await mongoose.connection.db.collections();
+
+  for (let collection of collections) {
+    await collection.deleteMany({});
+  }
+  // await mongoose.connection.dropDatabase();
 });
 
 afterAll(async () => {
