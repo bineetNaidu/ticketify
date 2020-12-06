@@ -6,6 +6,7 @@ import 'express-async-errors';
 //? Routers
 import { createTicketRoute } from './routes/new';
 import { showTicketsRouter } from './routes/show';
+import { indexTicketRoute } from './routes';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(currentUser);
 
 app.use(createTicketRoute);
 app.use(showTicketsRouter);
+app.use(indexTicketRoute);
 
 //! Not found page error
 app.all('*', () => {
