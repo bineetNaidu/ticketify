@@ -13,7 +13,7 @@ declare global {
 let mongo: MongoMemoryServer;
 
 beforeAll(async () => {
-  process.env.JWT_KEY = 'fadfsvs';
+  process.env.JWT_KEY = 'qwerty';
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
 
@@ -52,7 +52,7 @@ global.signin = () => {
   //? Turn Session into JSON
   const sessJson = JSON.stringify(session);
   //? Take JSON and encode as base64
-  const base64 = Buffer.from(sessJson).toString('hex');
+  const base64 = Buffer.from(sessJson).toString('base64');
   //? return cookie and base64 ecodded data
   return [`express:sess=${base64}`];
 };
