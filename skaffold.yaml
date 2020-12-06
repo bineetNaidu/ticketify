@@ -37,3 +37,4 @@ deploy:
     - k8s/ingress-srv.yaml
     - k8s/tickets-depl.yaml
     - k8s/tickets-mongo-depl.yaml
+    - k8s/nats-depl.yaml
