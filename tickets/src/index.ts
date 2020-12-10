@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import app from './app';
+import { natsWrapper } from './NATSWrapper';
 
 const startTicketsServiceWithMongoDB = async () => {
   if (!process.env.JWT_KEY) {
@@ -9,6 +10,7 @@ const startTicketsServiceWithMongoDB = async () => {
     throw new Error('MONGO_URI must be defined!!');
   }
   try {
+    await natsWrapper.connect('ticketify', 'randomIDX', 'http://nats-srv:4222');
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
