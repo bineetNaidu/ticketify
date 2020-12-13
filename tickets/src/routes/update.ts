@@ -8,6 +8,8 @@ import {
   BadRequestError,
 } from '@bnticketify/commons';
 import Ticket from '../models/Ticket';
+import { TicketUpdatedPublisher } from '../events/publishers/ticketUpdatedPublisher';
+import { natsWrapper } from '../NATSWrapper';
 
 const router = express.Router();
 
@@ -33,6 +35,12 @@ router.put(
       price: req.body.price,
     });
     await ticket.save();
+    new TicketUpdatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      price: ticket.price,
+      title: ticket.title,
+      userId: ticket.userId,
+    });
 
     res.json(ticket);
   },
