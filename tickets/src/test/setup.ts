@@ -10,6 +10,8 @@ declare global {
   }
 }
 
+jest.mock('../NATSWrapper');
+
 let mongo: MongoMemoryServer;
 
 beforeAll(async () => {
