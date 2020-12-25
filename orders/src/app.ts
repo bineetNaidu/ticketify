@@ -4,10 +4,10 @@ import cookieSession from 'cookie-session';
 import 'express-async-errors';
 
 //? Routers
-import { createTicketRoute } from './routes/new';
-import { showTicketsRouter } from './routes/show';
-import { updateTicketRouter } from './routes/update';
-import { indexTicketRoute } from './routes';
+import { newOrderRoute } from './routes/new';
+import { showOrderRoute } from './routes/show';
+import { deleteOrderRoute } from './routes/delete';
+import { indexOrderRoute } from './routes';
 
 const app = express();
 
@@ -21,10 +21,10 @@ app.use(
 );
 app.use(currentUser);
 
-app.use(createTicketRoute);
-app.use(showTicketsRouter);
-app.use(indexTicketRoute);
-app.use(updateTicketRouter);
+app.use(newOrderRoute);
+app.use(showOrderRoute);
+app.use(indexOrderRoute);
+app.use(deleteOrderRoute);
 
 //! Not found page error
 app.all('*', () => {
