@@ -1,9 +1,9 @@
+import { OrderStatus } from '@bnticketify/commons';
 import mongoose from 'mongoose';
 import request from 'supertest';
 import app from '../../app';
 import Order from '../../models/Order';
 import Ticket from '../../models/Ticket';
-import { OrderStatus } from '@bnticketify/commons';
 
 it('returns an error if the ticket does not exist', async () => {
   const ticketId = mongoose.Types.ObjectId();
@@ -17,7 +17,6 @@ it('returns an error if the ticket does not exist', async () => {
 
 it('returns an error if the ticket is already reserved', async () => {
   const ticket = Ticket.build({
-    id: mongoose.Types.ObjectId().toHexString(),
     title: 'concert',
     price: 20,
   });
@@ -39,7 +38,6 @@ it('returns an error if the ticket is already reserved', async () => {
 
 it('reserves a ticket', async () => {
   const ticket = Ticket.build({
-    id: mongoose.Types.ObjectId().toHexString(),
     title: 'concert',
     price: 20,
   });
@@ -51,3 +49,5 @@ it('reserves a ticket', async () => {
     .send({ ticketId: ticket.id })
     .expect(201);
 });
+
+it.todo('emits an order created event');
