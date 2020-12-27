@@ -21,33 +21,35 @@ router.post(
     body('ticketId')
       .not()
       .isEmpty()
-      .custom((input) => mongoose.Types.ObjectId.isValid(input))
+      .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
       .withMessage('TicketId must be provided'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const { ticketId } = req.body;
-    //*  Find the ticket the user is trying to order in the DB
+    //* Find the ticket the user is trying to order in the database
     const ticket = await Ticket.findById(ticketId);
     if (!ticket) {
       throw new NotFoundError();
     }
-    //*  Make sure the ticket is not already reserved
+    //* Make sure that this ticket is not already reserved
     const isReserved = await ticket.isReserved();
     if (isReserved) {
-      throw new BadRequestError('The Ticket is reserved!');
+      throw new BadRequestError('The ticket is already reserved');
     }
     //* Calculate an expiration date/time for this order
     const expiration = new Date();
     expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
-    //* Build the order and save it to the DB
-    const order = await Order.build({
+    //* Build the order and save it to the database
+    const order = Order.build({
       userId: req.currentUser!.id,
       status: OrderStatus.Created,
       expiresAt: expiration,
       ticket,
     });
-    //* Emmit / Publish a Event
+    await order.save();
+
+    //* Publish an event saying that an order was created
 
     res.status(201).json(order);
   },
