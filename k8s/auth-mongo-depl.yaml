@@ -17,8 +17,8 @@ spec:
         image: mongo
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "105Mi"
+            cpu: "100m"
 ---
 apiVersion: v1
 kind: Service

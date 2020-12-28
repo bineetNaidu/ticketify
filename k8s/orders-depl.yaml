@@ -33,7 +33,7 @@ spec:
                 key: JWT_KEY
         resources:
           limits:
-            memory: "90Mi"
+            memory: "125Mi"
             cpu: "150m"
 ---
 apiVersion: v1
