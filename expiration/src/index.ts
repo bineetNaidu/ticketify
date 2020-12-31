@@ -1,3 +1,4 @@
+import { OrderCreatedListener } from './events/listeners/OrderCreatedListener';
 import { natsWrapper } from './NATSWrapper';
 
 const startExpirationsServise = async () => {
@@ -10,6 +11,9 @@ const startExpirationsServise = async () => {
   if (!process.env.NATS_URL) {
     throw new Error('NATS_URL must be defined!!');
   }
+  if (!process.env.REDIS_HOST) {
+    throw new Error('REDIS_HOST must be defined!!');
+  }
 
   try {
     await natsWrapper.connect(
@@ -17,6 +21,9 @@ const startExpirationsServise = async () => {
       process.env.NATS_CLIENT_ID,
       process.env.NATS_URL,
     );
+
+    new OrderCreatedListener(natsWrapper.client).listen();
+
     natsWrapper.client.on('close', () => {
       console.log('NATS connection closed!');
       process.exit();
