@@ -24,11 +24,11 @@
   ],
   "author": {
     "name": "Bineet Naidu",
-    "url": "https://bineetnaidu.web.app"
+    "url": "https://bineetnaidu-io.web.app"
   },
   "license": "MIT",
   "dependencies": {
-    "@bnticketify/commons": "^1.0.7",
+    "@bnticketify/commons": "^1.0.17",
     "@types/cookie-session": "^2.0.41",
     "@types/express": "^4.17.9",
     "@types/jsonwebtoken": "^8.5.0",
