@@ -63,6 +63,8 @@ deploy:
     - k8s/ingress-srv.yaml
     - k8s/tickets-depl.yaml
     - k8s/tickets-mongo-depl.yaml
+    - k8s/payments-depl.yaml
+    - k8s/payments-mongo-depl.yaml
     - k8s/orders-depl.yaml
     - k8s/orders-mongo-depl.yaml
     - k8s/nats-depl.yaml
