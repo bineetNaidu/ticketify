@@ -4,7 +4,7 @@ import cookieSession from 'cookie-session';
 import 'express-async-errors';
 
 //? Routers
-
+import { createChargeRouter } from './routes/new';
 
 const app = express();
 
@@ -17,6 +17,8 @@ app.use(
   }),
 );
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 //! Not found page error
 app.all('*', () => {
