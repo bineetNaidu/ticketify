@@ -10,6 +10,7 @@ import {
 } from '@bnticketify/commons';
 import Order from '../models/Order';
 import stripe from '../stripe';
+import Payment from '../models/Payment';
 
 const router = express.Router();
 
@@ -33,12 +34,16 @@ router.post(
       throw new BadRequestError('Cannot pay for an cancelled order');
     }
 
-    await stripe.charges.create({
+    const customerCharge = await stripe.charges.create({
       amount: order.price * 100,
       currency: 'inr',
       source: token,
       description: `You purchased a ticket of price ${order.price} USD`,
     });
+    await Payment.build({
+      orderId,
+      stripeId: customerCharge.id,
+    }).save();
 
     res.status(201).send({ success: true });
   },
