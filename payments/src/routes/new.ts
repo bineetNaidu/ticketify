@@ -35,12 +35,12 @@ router.post(
 
     await stripe.charges.create({
       amount: order.price * 100,
-      currency: 'usd',
+      currency: 'inr',
       source: token,
       description: `You purchased a ticket of price ${order.price} USD`,
     });
 
-    res.send({ success: true });
+    res.status(201).send({ success: true });
   },
 );
 
