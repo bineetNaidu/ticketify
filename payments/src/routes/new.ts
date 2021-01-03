@@ -11,6 +11,8 @@ import {
 import Order from '../models/Order';
 import stripe from '../stripe';
 import Payment from '../models/Payment';
+import { PaymentCreatedPublisher } from '../events/publishers/PaymentCreatedPublisher';
+import { natsWrapper } from '../NATSWrapper';
 
 const router = express.Router();
 
@@ -40,10 +42,17 @@ router.post(
       source: token,
       description: `You purchased a ticket of price ${order.price} USD`,
     });
-    await Payment.build({
+    const payment = Payment.build({
       orderId,
       stripeId: customerCharge.id,
-    }).save();
+    });
+    await payment.save();
+
+    new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: payment.id,
+      orderId: payment.orderId,
+      stripeId: payment.stripeId,
+    });
 
     res.status(201).send({ success: true });
   },
