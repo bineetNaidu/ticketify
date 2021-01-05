@@ -9,8 +9,6 @@ const Index = ({ currentUser, tickets }) => {
         <thead>
           <tr>
             <th>Title</th>
-          </tr>
-          <tr>
             <th>Price</th>
           </tr>
         </thead>
