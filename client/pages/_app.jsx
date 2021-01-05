@@ -11,7 +11,9 @@ function MyApp({ Component, pageProps, currentUser }) {
       </Head>
       <div>
         <Header />
-        <Component {...pageProps} currentUser={currentUser} />
+        <div className="container">
+          <Component {...pageProps} currentUser={currentUser} />
+        </div>
       </div>
     </>
   );
