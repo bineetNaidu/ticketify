@@ -1,19 +1,34 @@
 import React from 'react';
 
-const Index = ({ currentUser }) => {
+const Index = ({ currentUser, tickets }) => {
   return (
-    <div className="container">
-      {currentUser === null ? (
-        <h1 className="text-center">Your are sign out</h1>
-      ) : (
-        <h1 className="text-center">Your are signed in</h1>
-      )}
+    <div>
+      <h1>Tickets</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+          </tr>
+          <tr>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tickets.map((ticket) => (
+            <tr key={ticket.id}>
+              <td>{ticket.title}</td>
+              <td>${ticket.price}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-Index.getInitialProps = async (context) => {
-  return {};
+Index.getInitialProps = async (context, client, currentUser) => {
+  const { data } = await client.get('/api/tickets');
+  return { tickets: data };
 };
 
 export default Index;
