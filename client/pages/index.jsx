@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Index = ({ currentUser, tickets }) => {
   return (
@@ -18,6 +19,11 @@ const Index = ({ currentUser, tickets }) => {
             <tr key={ticket.id}>
               <td>{ticket.title}</td>
               <td>${ticket.price}</td>
+              <td>
+                <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
+                  <a>View</a>
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
