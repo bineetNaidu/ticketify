@@ -1,23 +1,32 @@
 import Link from 'next/link';
 
 const Header = ({ currentUser }) => {
-  const links = [
-    !currentUser && { label: 'Sign Up', href: '/auth/signup' },
-    !currentUser && { label: 'Sign In', href: '/auth/signin' },
-    currentUser && { label: 'Sell Tickets', href: '/tickets/new' },
-    currentUser && { label: 'My Orders', href: '/orders' },
-    currentUser && { label: 'Sign Out', href: '/auth/signout' },
-  ]
-    .filter((linkConfig) => linkConfig)
-    .map(({ label, href }) => {
-      return (
-        <li key={href} className="nav-item">
-          <Link href={href}>
-            <a className="nav-link">{label}</a>
-          </Link>
-        </li>
-      );
-    });
+  const ifCurrentUserShowLinks = [
+    { label: 'Sell Tickets', href: '/tickets/new' },
+    { label: 'My Orders', href: '/orders' },
+    { label: 'Sign Out', href: '/auth/signout' },
+  ].map(({ label, href }) => {
+    return (
+      <li key={href} className="nav-item">
+        <Link href={href}>
+          <a className="nav-link">{label}</a>
+        </Link>
+      </li>
+    );
+  });
+
+  const ifNotCurrentUserShowLinks = [
+    { label: 'Sign Up', href: '/auth/signup' },
+    { label: 'Sign In', href: '/auth/signin' },
+  ].map(({ label, href }) => {
+    return (
+      <li key={href} className="nav-item">
+        <Link href={href}>
+          <a className="nav-link">{label}</a>
+        </Link>
+      </li>
+    );
+  });
 
   return (
     <nav className="navbar navbar-light bg-light">
@@ -26,7 +35,9 @@ const Header = ({ currentUser }) => {
       </Link>
 
       <div className="d-flex justify-content-end">
-        <ul className="nav d-flex align-items-center">{links}</ul>
+        <ul className="nav d-flex align-items-center">
+          {currentUser ? ifCurrentUserShowLinks : ifNotCurrentUserShowLinks}
+        </ul>
       </div>
     </nav>
   );
