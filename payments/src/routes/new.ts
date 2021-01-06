@@ -44,7 +44,7 @@ router.post(
     });
     const payment = Payment.build({
       orderId,
-      stripeId: customerCharge.id,
+      stripeId: customerCharge.id || 'stripeIdFakeID',
     });
     await payment.save();
 
