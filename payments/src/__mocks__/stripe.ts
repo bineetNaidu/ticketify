@@ -3,3 +3,5 @@ const stripe = {
     create: jest.fn().mockResolvedValue({}),
   },
 };
+
+export default stripe;
