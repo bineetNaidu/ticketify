@@ -4,11 +4,11 @@ Ticketify is kind of online ticket selling app with microservices.
 
 ## Installation
 
-Use the package manager [npm](npmjs.com) to install foobar.
+Use the package manager [npm](npmjs.com) to install Ticketify.
 
 ## Usage
 
-It use Docker and Kubernetes to orcastrate the microsevices.
+It use Docker and Kubernetes to Orchestrate the Microsevices.
 
 ## Contributing
 
